@@ -1,5 +1,5 @@
 name = "clm"
-main = "src/index.ts"
+main = "src/index.tsx"
 compatibility_date = "2023-12-18"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
