@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { html } from 'hono/html';
 import { customAlphabet } from 'nanoid';
+import { serveStatic } from 'hono/cloudflare-workers';
 
 interface Bindings {
 	URL_BINDING: KVNamespace;
@@ -28,6 +29,7 @@ const Layout = (props: { children?: any }) => html`<!DOCTYPE html>
 			<div class="h-full w-full flex items-center">${props.children}</div>
 		</body>
 	</html>`;
+app.use('/favicon.ico', serveStatic({ root: 'public' }));
 
 app.get('/', (c) => {
 	return c.html(
