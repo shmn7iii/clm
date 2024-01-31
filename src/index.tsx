@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { customAlphabet } from 'nanoid';
+import { faker } from '@faker-js/faker';
 import { serveStatic } from 'hono/cloudflare-workers';
 import Layout from './components/layout';
 
@@ -8,7 +8,6 @@ interface Bindings {
 }
 
 const app = new Hono<{ Bindings: Bindings }>();
-const nanoid = customAlphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz', 8);
 
 app.use('/favicon.ico', serveStatic({ root: 'public' }));
 
@@ -50,8 +49,12 @@ app.post('/api/links', async (c) => {
 		return c.text('Missing URL', 400);
 	}
 
-	const key = nanoid();
-	await c.env.URL_BINDING.put(key, url);
+	let key = '';
+	for (let i = 0; i < 6; i++) {
+		key = key + faker.internet.emoji({ types: ['food', 'nature', 'travel', 'activity'] });
+	}
+
+	await c.env.URL_BINDING.put(encodeURI(key), url);
 
 	const shortened = `${new URL(c.req.url).origin}/${key}`;
 
@@ -79,7 +82,7 @@ app.post('/api/links', async (c) => {
 
 app.get('/:key', async (c) => {
 	const key = c.req.param('key');
-	const url = await c.env.URL_BINDING.get(key);
+	const url = await c.env.URL_BINDING.get(encodeURI(key));
 
 	if (url == null) {
 		return c.notFound();
