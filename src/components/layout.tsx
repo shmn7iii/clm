@@ -1,6 +1,6 @@
 import { html } from 'hono/html';
 
-const Layout = (props: { children?: any }) => {
+const Layout = (props: { children?: any; header_emoji: string }) => {
 	return html`<!DOCTYPE html>
 		<html>
 			<head>
@@ -17,7 +17,7 @@ const Layout = (props: { children?: any }) => {
 						<a href="/">
 							<h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl" style="font-family: 'Fugaz One';">
 								<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"> clm </span>
-								<small class="ms-8 font-sans text-2xl font-bold"> URL Shortener </small>
+								<small class="ms-2 font-sans text-2xl font-bold"> URL Shortener ${props.header_emoji} </small>
 							</h1>
 						</a>
 					</header>

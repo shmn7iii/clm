@@ -12,8 +12,10 @@ const app = new Hono<{ Bindings: Bindings }>();
 app.use('/favicon.ico', serveStatic({ root: 'public' }));
 
 app.get('/', (c) => {
+	const header_emoji = faker.internet.emoji({ types: ['food', 'nature', 'travel', 'activity'] });
+
 	return c.html(
-		<Layout>
+		<Layout header_emoji={header_emoji}>
 			<div class="w-full">
 				<form action="/api/links" method="post">
 					<label for="search" class="block mb-2 text-xl font-bold text-gray-900">
@@ -59,7 +61,7 @@ app.post('/api/links', async (c) => {
 	const shortened = `${new URL(c.req.url).origin}/${key}`;
 
 	return c.html(
-		<Layout>
+		<Layout header_emoji={[...key][0]}>
 			<div>
 				<h1 class="mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
 					<span
