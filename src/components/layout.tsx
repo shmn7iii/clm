@@ -11,7 +11,7 @@ const Layout = (props: { children?: any; header_emoji: string }) => {
 				<link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet" />
 				<script src="https://cdn.tailwindcss.com"></script>
 			</head>
-			<body class="h-screen w-screen px-44 py-6">
+			<body class="h-dvh w-screen px-44 py-6">
 				<div class="relative">
 					<header class="absolute w-full">
 						<a href="/">
